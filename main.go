@@ -13,11 +13,13 @@ func main() {
 	// Run lessons
 	fmt.Println("--- Functions Lesson ---")
 	functions.Run()
+
 	fmt.Println("--- Loops Lesson ---")
 	loops.Run()
+
 	fmt.Println("--- Colors Lesson ---")
 	colors.Run()
-	fmt.Println("--- Quote ---")
 
+	fmt.Println("--- Quote ---")
 	fmt.Println(quote.Go())
 }
