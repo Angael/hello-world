@@ -5,6 +5,7 @@ import (
 	loops "example/hello/lessons/01_loops"
 	colors "example/hello/lessons/02_colors"
 	pointers "example/hello/lessons/04_pointers"
+	goroutines "example/hello/lessons/05_goroutines"
 	"fmt"
 
 	"rsc.io/quote"
@@ -26,4 +27,7 @@ func main() {
 
 	fmt.Println("--- Pointers ---")
 	pointers.Run()
+
+	fmt.Println("--- Goroutines ---")
+	goroutines.Run()
 }
