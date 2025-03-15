@@ -4,6 +4,7 @@ import (
 	functions "example/hello/lessons/00_functions"
 	loops "example/hello/lessons/01_loops"
 	colors "example/hello/lessons/02_colors"
+	channels "example/hello/lessons/03_channels"
 	pointers "example/hello/lessons/04_pointers"
 	goroutines "example/hello/lessons/05_goroutines"
 	"fmt"
@@ -21,6 +22,9 @@ func main() {
 
 	fmt.Println("--- Colors Lesson ---")
 	colors.Run()
+
+	fmt.Println("--- Channels Lesson ---")
+	channels.Run()
 
 	fmt.Println("--- Quote ---")
 	fmt.Println(quote.Go())
