@@ -17,21 +17,29 @@ func TestAverageRoll(n int, rolls int) float64 {
 	return float64(sum) / float64(rolls)
 }
 
-func pathfinderDamage(attackBonus int, damageDice int, damageBonus int, critRange int, rolls int, ac int) float64 {
+type Weapon struct {
+	Name        string
+	AttackBonus int
+	DamageDice  int
+	DamageBonus int
+	CritRange   int
+}
+
+func (w Weapon) AverageDamage(rolls int, ac int) float64 {
 	var totalDamage int
 	for i := 0; i < rolls; i++ {
 		roll := RollDice(20)
-		if roll >= critRange {
+		if roll >= w.CritRange {
 			// Critical hit
-			totalDamage += RollDice(damageDice) + damageBonus + RollDice(damageDice) + damageBonus
-		} else if roll+attackBonus >= ac { // Assuming AC is 10 for simplicity
+			totalDamage += RollDice(w.DamageDice) + w.DamageBonus + RollDice(w.DamageDice) + w.DamageBonus
+		} else if roll+w.AttackBonus >= ac {
 			// Normal hit
-			totalDamage += RollDice(damageDice) + damageBonus
+			totalDamage += RollDice(w.DamageDice) + w.DamageBonus
 		}
 		// else miss, do nothing
 	}
 
-	// Round to 2 decimal places
+	// Round to 3 decimal places
 	rounded := float64(totalDamage) / float64(rolls)
 	return float64(int(rounded*1000)) / 1000
 }
@@ -44,33 +52,28 @@ func Run() {
 	rolls := 1000000
 	fmt.Println("--- Pathfinder Damage Comparison (", rolls, " rolls) ---")
 
+	// Define weapons
+	greatsword := Weapon{Name: "Greatsword", AttackBonus: 6, DamageDice: 6, DamageBonus: 4, CritRange: 19}
+	longsword := Weapon{Name: "Longsword", AttackBonus: 4, DamageDice: 8, DamageBonus: 3, CritRange: 19}
+	lightMace := Weapon{Name: "Light Mace", AttackBonus: 3, DamageDice: 6, DamageBonus: 1, CritRange: 20}
+	dagger := Weapon{Name: "Dagger", AttackBonus: 4, DamageDice: 4, DamageBonus: 1, CritRange: 19}
+
 	// test for AC 5, 10, 15
 	for _, ac := range []int{5, 10, 15} {
 		fmt.Println("AC: ", ac)
 
-		// (attack +6, damage 2d6 + 4, critical d19-20)
-		greatSword := pathfinderDamage(6, 6, 4, 19, rolls, ac)
+		// Calculate average damage
+		greatswordDamage := greatsword.AverageDamage(rolls, ac)
+		longswordDamage := longsword.AverageDamage(rolls, ac)
+		lightMaceDamage := lightMace.AverageDamage(rolls, ac)
+		daggerDamage := dagger.AverageDamage(rolls, ac)
 
-		// (attack +4, damage 1d8 + 3, critical d19-20)
-		longSword := pathfinderDamage(4, 8, 3, 19, rolls, ac)
+		fmt.Println("  Greatsword: ", greatswordDamage)
 
-		// (attack +3, damage 1d6 + 1, critical d20)
-		caseLightMace := pathfinderDamage(3, 6, 1, 20, rolls, ac)
-
-		// (attack +4, damage 1d4 + 1, critical d19-20)
-		caseDagger := pathfinderDamage(4, 4, 1, 19, rolls, ac)
-
-		// fmt.Println("  Dual wielded Longsword: ", longSword)
-		// fmt.Println("  Light Mace: ", caseLightMace)
-		// fmt.Println("  Dagger: ", caseDagger)
-
-		fmt.Println("  Greatsword: ", greatSword)
-
-		roundedLongSwordAndLightMace := float64(int((longSword+caseLightMace)*1000)) / 1000
+		roundedLongSwordAndLightMace := float64(int((longswordDamage+lightMaceDamage)*1000)) / 1000
 		fmt.Println("  Longsword + Light Mace: ", roundedLongSwordAndLightMace)
 
-		roundedLongSwordAndDagger := float64(int((longSword+caseDagger)*1000)) / 1000
+		roundedLongSwordAndDagger := float64(int((longswordDamage+daggerDamage)*1000)) / 1000
 		fmt.Println("  Longsword + Dagger: ", roundedLongSwordAndDagger)
-
 	}
 }
