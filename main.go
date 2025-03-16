@@ -1,37 +1,55 @@
 package main
 
 import (
+	"flag"
+	"fmt"
+
 	functions "example/hello/lessons/00_functions"
 	loops "example/hello/lessons/01_loops"
 	colors "example/hello/lessons/02_colors"
 	channels "example/hello/lessons/03_channels"
 	pointers "example/hello/lessons/04_pointers"
 	goroutines "example/hello/lessons/05_goroutines"
-	"fmt"
-
-	"rsc.io/quote"
+	randomdice "example/hello/lessons/06_randomdice"
 )
 
 func main() {
-	// Run lessons
-	fmt.Println("--- Functions Lesson ---")
-	functions.Run()
+	lesson := flag.Int("lesson", -1, "Run a specific lesson (0-6), -1 for all")
+	flag.Parse()
 
-	fmt.Println("--- Loops Lesson ---")
-	loops.Run()
+	if *lesson == -1 || *lesson == 0 {
+		fmt.Println("--- Functions Lesson ---")
+		functions.Run()
+	}
 
-	fmt.Println("--- Colors Lesson ---")
-	colors.Run()
+	if *lesson == -1 || *lesson == 1 {
+		fmt.Println("--- Loops Lesson ---")
+		loops.Run()
+	}
 
-	fmt.Println("--- Channels Lesson ---")
-	channels.Run()
+	if *lesson == -1 || *lesson == 2 {
+		fmt.Println("--- Colors Lesson ---")
+		colors.Run()
+	}
 
-	fmt.Println("--- Quote ---")
-	fmt.Println(quote.Go())
+	if *lesson == -1 || *lesson == 3 {
+		fmt.Println("--- Channels Lesson ---")
+		channels.Run()
+	}
 
-	fmt.Println("--- Pointers ---")
-	pointers.Run()
+	if *lesson == -1 || *lesson == 4 {
+		fmt.Println("--- Pointers ---")
+		pointers.Run()
+	}
 
-	fmt.Println("--- Goroutines ---")
-	goroutines.Run()
+	if *lesson == -1 || *lesson == 5 {
+		fmt.Println("--- Goroutines ---")
+		goroutines.Run()
+	}
+
+	if *lesson == -1 || *lesson == 6 {
+		fmt.Println("--- Random Dice ---")
+		randomdice.Run()
+	}
+
 }
