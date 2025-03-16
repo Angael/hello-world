@@ -44,8 +44,8 @@ func Run() {
 	rolls := 1000000
 	fmt.Println("--- Pathfinder Damage Comparison (", rolls, " rolls) ---")
 
-	// test for AC from 7 to 20
-	for ac := 7; ac <= 20; ac++ {
+	// test for AC 5, 10, 15
+	for _, ac := range []int{5, 10, 15} {
 		fmt.Println("AC: ", ac)
 
 		// (attack +6, damage 2d6 + 4, critical d19-20)
@@ -60,9 +60,9 @@ func Run() {
 		// (attack +4, damage 1d4 + 1, critical d19-20)
 		caseDagger := pathfinderDamage(4, 4, 1, 19, rolls, ac)
 
-		fmt.Println("  Longsword: ", longSword)
-		fmt.Println("  Light Mace: ", caseLightMace)
-		fmt.Println("  Dagger: ", caseDagger)
+		// fmt.Println("  Dual wielded Longsword: ", longSword)
+		// fmt.Println("  Light Mace: ", caseLightMace)
+		// fmt.Println("  Dagger: ", caseDagger)
 
 		fmt.Println("  Greatsword: ", greatSword)
 
