@@ -11,6 +11,7 @@ import (
 	pointers "example/hello/lessons/04_pointers"
 	goroutines "example/hello/lessons/05_goroutines"
 	randomdice "example/hello/lessons/06_randomdice"
+	manythreads "example/hello/lessons/07_manythreads"
 )
 
 func main() {
@@ -52,4 +53,8 @@ func main() {
 		randomdice.Run()
 	}
 
+	if *lesson == -1 || *lesson == 7 {
+		fmt.Println("--- Many threads sync ---")
+		manythreads.Run()
+	}
 }
