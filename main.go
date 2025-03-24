@@ -12,6 +12,7 @@ import (
 	goroutines "example/hello/lessons/05_goroutines"
 	randomdice "example/hello/lessons/06_randomdice"
 	manythreads "example/hello/lessons/07_manythreads"
+	arrays "example/hello/lessons/08_arrays"
 )
 
 func main() {
@@ -57,4 +58,10 @@ func main() {
 		fmt.Println("--- Many threads sync ---")
 		manythreads.Run()
 	}
+
+	if *lesson == -1 || *lesson == 8 {
+		fmt.Println("--- Arrays ---")
+		arrays.Run()
+	}
+
 }

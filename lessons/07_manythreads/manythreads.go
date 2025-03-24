@@ -17,7 +17,10 @@ func expensiveCalculation(num int) float64 {
 
 func multiplyByTwo(num int, resultChan chan float64, wg *sync.WaitGroup) {
 	defer wg.Done()
-	result := expensiveCalculation(num)
+	result := float64(num)
+	for i := 0; i < 1000; i++ {
+		result = math.Sin(result) * math.Cos(result)
+	}
 	resultChan <- result
 }
 
